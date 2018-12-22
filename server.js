@@ -60,7 +60,7 @@ app.get('/owl', function(req, res) {
       console.log('Contendor 1 ', season1.data.stages[i].matches[x].competitors[0].name)
       console.log('Contendo 2 ', season1.data.stages[i].matches[x].competitors[1].name)
       console.log('Winner: ',season1.data.stages[i].matches[x].winner.name)
-
+      console.log('Date: ',season1.data.stages[i].matches[x].startDate)
       for(let y = 0; y < season1.data.stages[i].matches[x].games.length; y ++){
         console.log('Game ID', season1.data.stages[i].matches[x].games[y].id)
         console.log('Game ID', season1.data.stages[i].matches[x].games[y].points)
