@@ -13,9 +13,10 @@ const cookieSession = require('cookie-session');
 const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET
 const cookieParser = require('cookie-parser');
+const OverwatchLeague = require('overwatchleague');
+const OWL = new OverwatchLeague();
 
-
-
+const season1 = require('./season1.json')
 const knexConfig  = require('./knexfile');
 const knex        = require('knex')(knexConfig[ENV]);
 const morgan      = require('morgan');
@@ -46,6 +47,39 @@ app.use(express.static('public'));
 app.use('/users', usersRoutes(knex, bcrypt));
 
 
+app.get('/owl', function(req, res) {
+  let data;
+
+
+  // console.log(season1.data.stages)
+  for(let i = 0; i < season1.data.stages.length; i ++){
+    console.log(season1.data.stages[i].slug);
+    for(let x = 0; x < season1.data.stages[i].matches.length; x ++){
+      console.log('-------------')
+      console.log('Match ID: ', season1.data.stages[i].matches[x].id)
+      console.log('Contendor 1 ', season1.data.stages[i].matches[x].competitors[0].name)
+      console.log('Contendo 2 ', season1.data.stages[i].matches[x].competitors[1].name)
+      console.log('Winner: ',season1.data.stages[i].matches[x].winner.name)
+
+      for(let y = 0; y < season1.data.stages[i].matches[x].games.length; y ++){
+        console.log('Game ID', season1.data.stages[i].matches[x].games[y].id)
+        console.log('Game ID', season1.data.stages[i].matches[x].games[y].points)
+        console.log('Game ID', season1.data.stages[i].matches[x].games[y].attributes.map)
+      }
+    }
+    // console.log(season1.data.stages[i].matches);
+  }
+  // console.log(season1)
+
+  // OWL.getInfo().then(response => {
+  //   res.json({
+  //      data
+  //   });
+  // });
+  res.sendStatus(200);
+});
+
+
 
 app.get('/test/login', function(req, res) {
   console.log(req.body);
@@ -72,6 +106,9 @@ app.post('/test/login', function(req, res) {
        token: token
     });
 });
+
+
+
 
 console.log(secret)
 // Home page
