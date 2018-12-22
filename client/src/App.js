@@ -30,14 +30,6 @@ class App extends Component {
     this.authListener();
   }
 
-    handleClick2 =(e) => {
-        e.preventDefault();
-        Alert.info('Test message 2', {
-            position: 'top-right',
-            effect: 'bouncyflip',
-            timeout: 50
-        });
-    }
 
 
   authListener() {
