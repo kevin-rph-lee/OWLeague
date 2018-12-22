@@ -48,35 +48,38 @@ app.use('/users', usersRoutes(knex, bcrypt));
 
 
 app.get('/owl', function(req, res) {
-  let data;
+  let data = {};
+
 
 
   // console.log(season1.data.stages)
   for(let i = 0; i < season1.data.stages.length; i ++){
-    console.log(season1.data.stages[i].slug);
+    const stage = season1.data.stages[i].slug;
+    data[season1.data.stages[i].slug] = {}
     for(let x = 0; x < season1.data.stages[i].matches.length; x ++){
-      console.log('-------------')
-      console.log('Match ID: ', season1.data.stages[i].matches[x].id)
-      console.log('Contendor 1 ', season1.data.stages[i].matches[x].competitors[0].name)
-      console.log('Contendo 2 ', season1.data.stages[i].matches[x].competitors[1].name)
-      console.log('Winner: ',season1.data.stages[i].matches[x].winner.name)
-      console.log('Date: ',season1.data.stages[i].matches[x].startDate)
+      const match = season1.data.stages[i].matches[x]
+      data[stage]['matchID'] =  match.id;
+      data[stage]['team1'] = match.competitors[0].name;
+      data[stage]['team2'] = match.competitors[1].name;
+      data[stage]['winner'] = match.winner.name;
+      data[stage]['date'] = match.startDate;
+      data[stage]['games'] = []
       for(let y = 0; y < season1.data.stages[i].matches[x].games.length; y ++){
-        console.log('Game ID', season1.data.stages[i].matches[x].games[y].id)
-        console.log('Game ID', season1.data.stages[i].matches[x].games[y].points)
-        console.log('Game ID', season1.data.stages[i].matches[x].games[y].attributes.map)
+        const gameID = season1.data.stages[i].matches[x].games[y].id;
+        const points = season1.data.stages[i].matches[x].games[y].points;
+        const map = season1.data.stages[i].matches[x].games[y].attributes.map;
+
+        data[stage]['games'].push({
+          gameID: gameID,
+          points: points,
+          map: map
+        })
       }
     }
-    // console.log(season1.data.stages[i].matches);
   }
-  // console.log(season1)
-
-  // OWL.getInfo().then(response => {
-  //   res.json({
-  //      data
-  //   });
-  // });
-  res.sendStatus(200);
+  res.json({
+     data
+  });
 });
 
 
