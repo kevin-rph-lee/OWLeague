@@ -48,35 +48,66 @@ app.use('/users', usersRoutes(knex, bcrypt));
 
 
 app.get('/owl', function(req, res) {
-  let data;
+  let data = {};
+  console.log('HIt route')
+  OWL.getMatches().then(response => {
+    console.log('Got Data')
+    for(let i = 0; i < season1.data.stages.length; i ++){
+      const stage = season1.data.stages[i].slug;
+      data[stage] = {}
 
+      if(stage === 'preseason'){
+        data[stage]['image'] = 'https://i.imgur.com/zpTSuyY.jpg'
+        data[stage]['friendlyName'] = 'Preseason'
+      } else if (stage === 'stage1'){
+        data[stage]['image'] = 'https://i.imgur.com/4mB4B75.jpg'
+        data[stage]['friendlyName'] = 'Stage 1'
+      } else if (stage === 'stage2'){
+        data[stage]['image'] = 'https://i.imgur.com/DNztqtx.jpg'
+        data[stage]['friendlyName'] = 'Stage 2'
+      } else if (stage === 'stage3'){
+        data[stage]['image'] = 'https://i.imgur.com/2y6E6HY.jpg'
+        data[stage]['friendlyName'] = 'Stage 3'
+      } else if (stage === 'stage4'){
+        data[stage]['image'] = 'https://i.imgur.com/P8ZDIJi.jpg'
+        data[stage]['friendlyName'] = 'Stage 4'
+      } else if (stage === 'playoffs'){
+        data[stage]['image'] = 'https://i.imgur.com/og4p9Ct.jpg'
+        data[stage]['friendlyName'] = 'Playoffs & Grand Finals'
+      } else {
+        data[stage]['image'] = 'https://i.imgur.com/FDydIvH.jpg'
+        data[stage]['friendlyName'] = 'All Star Weekend'
+      }
 
-  // console.log(season1.data.stages)
-  for(let i = 0; i < season1.data.stages.length; i ++){
-    console.log(season1.data.stages[i].slug);
-    for(let x = 0; x < season1.data.stages[i].matches.length; x ++){
-      console.log('-------------')
-      console.log('Match ID: ', season1.data.stages[i].matches[x].id)
-      console.log('Contendor 1 ', season1.data.stages[i].matches[x].competitors[0].name)
-      console.log('Contendo 2 ', season1.data.stages[i].matches[x].competitors[1].name)
-      console.log('Winner: ',season1.data.stages[i].matches[x].winner.name)
-      console.log('Date: ',season1.data.stages[i].matches[x].startDate)
-      for(let y = 0; y < season1.data.stages[i].matches[x].games.length; y ++){
-        console.log('Game ID', season1.data.stages[i].matches[x].games[y].id)
-        console.log('Game ID', season1.data.stages[i].matches[x].games[y].points)
-        console.log('Game ID', season1.data.stages[i].matches[x].games[y].attributes.map)
+      for(let x = 0; x < season1.data.stages[i].matches.length; x ++){
+        const match = season1.data.stages[i].matches[x]
+        data[stage]['matchID'] =  match.id;
+        data[stage]['team1'] = match.competitors[0].name;
+        data[stage]['team2'] = match.competitors[1].name;
+        data[stage]['winner'] = match.winner.name;
+        data[stage]['date'] = match.startDate;
+        data[stage]['games'] = []
+        for(let y = 0; y < season1.data.stages[i].matches[x].games.length; y ++){
+          const gameID = season1.data.stages[i].matches[x].games[y].id;
+          const points = season1.data.stages[i].matches[x].games[y].points;
+          const map = season1.data.stages[i].matches[x].games[y].attributes.map;
+
+          data[stage]['games'].push({
+            gameID: gameID,
+            points: points,
+            map: map
+          })
+        }
       }
     }
-    // console.log(season1.data.stages[i].matches);
-  }
-  // console.log(season1)
+    res.json({
+       data
+    });
 
-  // OWL.getInfo().then(response => {
-  //   res.json({
-  //      data
-  //   });
-  // });
-  res.sendStatus(200);
+  });
+
+
+
 });
 
 
