@@ -49,51 +49,58 @@ app.use('/users', usersRoutes(knex, bcrypt));
 
 app.get('/owl', function(req, res) {
   let data = {};
+  console.log('HIt route')
+  OWL.getMatches().then(response => {
+    console.log('Got Data')
+    for(let i = 0; i < season1.data.stages.length; i ++){
+      const stage = season1.data.stages[i].slug;
+      data[stage] = {}
 
-  for(let i = 0; i < season1.data.stages.length; i ++){
-    const stage = season1.data.stages[i].slug;
-    data[stage] = {}
+      if(stage === 'preseason'){
+        data[stage]['image'] = 'https://i.imgur.com/zpTSuyY.jpg'
+      } else if (stage === 'stage1'){
+        data[stage]['image'] = 'https://i.imgur.com/4mB4B75.jpg'
+      } else if (stage === 'stage2'){
+        data[stage]['image'] = 'https://i.imgur.com/DNztqtx.jpg'
+      } else if (stage === 'stage3'){
+        data[stage]['image'] = 'https://i.imgur.com/2y6E6HY.jpg'
+      } else if (stage === 'stage4'){
+        data[stage]['image'] = 'https://i.imgur.com/P8ZDIJi.jpg'
+      } else if (stage === 'playoffs'){
+        data[stage]['image'] = 'https://i.imgur.com/og4p9Ct.jpg'
+      } else {
+        data[stage]['image'] = 'https://i.imgur.com/FDydIvH.jpg'
+      }
 
-    if(stage === 'preseason'){
-      data[stage]['image'] = 'https://i.imgur.com/zpTSuyY.jpg'
-    } else if (stage === 'stage1'){
-      data[stage]['image'] = 'https://i.imgur.com/4mB4B75.jpg'
-    } else if (stage === 'stage2'){
-      data[stage]['image'] = 'https://i.imgur.com/DNztqtx.jpg'
-    } else if (stage === 'stage3'){
-      data[stage]['image'] = 'https://i.imgur.com/2y6E6HY.jpg'
-    } else if (stage === 'stage4'){
-      data[stage]['image'] = 'https://i.imgur.com/P8ZDIJi.jpg'
-    } else if (stage === 'playoffs'){
-      data[stage]['image'] = 'https://i.imgur.com/og4p9Ct.jpg'
-    } else {
-      data[stage]['image'] = 'https://i.imgur.com/FDydIvH.jpg'
-    }
+      for(let x = 0; x < season1.data.stages[i].matches.length; x ++){
+        const match = season1.data.stages[i].matches[x]
+        data[stage]['matchID'] =  match.id;
+        data[stage]['team1'] = match.competitors[0].name;
+        data[stage]['team2'] = match.competitors[1].name;
+        data[stage]['winner'] = match.winner.name;
+        data[stage]['date'] = match.startDate;
+        data[stage]['games'] = []
+        for(let y = 0; y < season1.data.stages[i].matches[x].games.length; y ++){
+          const gameID = season1.data.stages[i].matches[x].games[y].id;
+          const points = season1.data.stages[i].matches[x].games[y].points;
+          const map = season1.data.stages[i].matches[x].games[y].attributes.map;
 
-    for(let x = 0; x < season1.data.stages[i].matches.length; x ++){
-      const match = season1.data.stages[i].matches[x]
-      data[stage]['matchID'] =  match.id;
-      data[stage]['team1'] = match.competitors[0].name;
-      data[stage]['team2'] = match.competitors[1].name;
-      data[stage]['winner'] = match.winner.name;
-      data[stage]['date'] = match.startDate;
-      data[stage]['games'] = []
-      for(let y = 0; y < season1.data.stages[i].matches[x].games.length; y ++){
-        const gameID = season1.data.stages[i].matches[x].games[y].id;
-        const points = season1.data.stages[i].matches[x].games[y].points;
-        const map = season1.data.stages[i].matches[x].games[y].attributes.map;
-
-        data[stage]['games'].push({
-          gameID: gameID,
-          points: points,
-          map: map
-        })
+          data[stage]['games'].push({
+            gameID: gameID,
+            points: points,
+            map: map
+          })
+        }
       }
     }
-  }
-  res.json({
-     data
+    res.json({
+       data
+    });
+
   });
+
+
+
 });
 
 
