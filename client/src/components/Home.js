@@ -36,6 +36,21 @@ class Home extends Component {
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+
+  }
+
+  componentDidMount = () => {
+    axios.get('owl/', {
+
+    })
+    .then((response) => {
+      console.log("Response Data: ", response.data)
+
+    })
+    .catch((error) => {
+      console.log('error is ',error);
+    })
   }
 
   onExiting() {

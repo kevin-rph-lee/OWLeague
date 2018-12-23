@@ -37,3 +37,9 @@
 .carousel-item > img {
   width: 100%;
 }
+
+.stages-carosel {
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 50px;
+}
