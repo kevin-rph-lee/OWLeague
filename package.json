@@ -6,7 +6,10 @@
   "scripts": {
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"node server.js\" \"cd client && npm start\""
+    "dev": "concurrently --kill-others-on-fail \"node server.js\" \"cd client && npm start\"",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install && npm start"
+
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
