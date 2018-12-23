@@ -8,7 +8,7 @@ import {
   CarouselIndicators,
   CarouselCaption
 } from 'reactstrap';
-
+import Loader from './Loader.js';
 
 
 class Home extends Component {
@@ -106,6 +106,7 @@ class Home extends Component {
           <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
           <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
         </Carousel>
+        <Loader />
       </div>
     );
   }
