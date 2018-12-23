@@ -36,7 +36,7 @@ class Home extends Component {
         const items = this.state.items
 
         items.push({
-          caption: i,
+          caption: data[i].friendlyName,
           src: data[i].image,
           altText: 'Season 1'
         })

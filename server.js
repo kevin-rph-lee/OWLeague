@@ -58,18 +58,25 @@ app.get('/owl', function(req, res) {
 
       if(stage === 'preseason'){
         data[stage]['image'] = 'https://i.imgur.com/zpTSuyY.jpg'
+        data[stage]['friendlyName'] = 'Preseason'
       } else if (stage === 'stage1'){
         data[stage]['image'] = 'https://i.imgur.com/4mB4B75.jpg'
+        data[stage]['friendlyName'] = 'Stage 1'
       } else if (stage === 'stage2'){
         data[stage]['image'] = 'https://i.imgur.com/DNztqtx.jpg'
+        data[stage]['friendlyName'] = 'Stage 2'
       } else if (stage === 'stage3'){
         data[stage]['image'] = 'https://i.imgur.com/2y6E6HY.jpg'
+        data[stage]['friendlyName'] = 'Stage 3'
       } else if (stage === 'stage4'){
         data[stage]['image'] = 'https://i.imgur.com/P8ZDIJi.jpg'
+        data[stage]['friendlyName'] = 'Stage 4'
       } else if (stage === 'playoffs'){
         data[stage]['image'] = 'https://i.imgur.com/og4p9Ct.jpg'
+        data[stage]['friendlyName'] = 'Playoffs & Grand Finals'
       } else {
         data[stage]['image'] = 'https://i.imgur.com/FDydIvH.jpg'
+        data[stage]['friendlyName'] = 'All Star Weekend'
       }
 
       for(let x = 0; x < season1.data.stages[i].matches.length; x ++){
