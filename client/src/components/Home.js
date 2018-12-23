@@ -9,23 +9,6 @@ import {
   CarouselCaption
 } from 'reactstrap';
 
-// const items = [
-//   {
-//     src: 'https://i.imgur.com/zpTSuyY.jpg',
-//     altText: 'Slide 1',
-//     caption: 'Slide 1'
-//   },
-//   {
-//     src: 'https://i.imgur.com/4mB4B75.jpg',
-//     altText: 'Slide 2',
-//     caption: 'Slide 2'
-//   },
-//   {
-//     src: 'https://i.imgur.com/DNztqtx.jpg',
-//     altText: 'Slide 3',
-//     caption: 'Slide 3'
-//   }
-// ];
 
 const items = []
 
@@ -111,6 +94,7 @@ class Home extends Component {
           activeIndex={activeIndex}
           next={this.next}
           previous={this.previous}
+          // interval={0}
         >
           <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
           {slides}
