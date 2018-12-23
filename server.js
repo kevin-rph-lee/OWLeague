@@ -15,6 +15,8 @@ const secret = process.env.SECRET
 const cookieParser = require('cookie-parser');
 const OverwatchLeague = require('overwatchleague');
 const OWL = new OverwatchLeague();
+const path = require('path');
+
 
 const season1 = require('./season1.json')
 const knexConfig  = require('./knexfile');
@@ -42,6 +44,10 @@ app.use('/styles', sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static('public'));
+
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 
 // Mount all resource routes
 app.use('/users', usersRoutes(knex, bcrypt));
