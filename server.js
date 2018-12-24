@@ -46,7 +46,7 @@ app.use('/styles', sass({
 app.use(express.static('public'));
 
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 
 // Mount all resource routes
@@ -147,10 +147,11 @@ app.post('/test/login', function(req, res) {
 
 
 
-console.log(secret)
+// Anything that doesn't match the above, send back the index.html file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
+
 
 app.listen(PORT, () => {
   console.log('Example app listening on port ' + PORT);
