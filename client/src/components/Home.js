@@ -7,10 +7,11 @@ import {
   CarouselControl,
   CarouselIndicators,
   Collapse,
-  CarouselCaption
+  CarouselCaption,
+  Media
 } from 'reactstrap';
 import Loader from './Loader.js';
-
+import Game from './Game.js';
 
 class Home extends Component {
   constructor(props) {
@@ -53,8 +54,8 @@ class Home extends Component {
     })
   }
 
-  toggle() {
-    console.log('click!')
+  toggle(e) {
+
     this.setState({ collapse: !this.state.collapse });
   }
 
@@ -128,7 +129,7 @@ class Home extends Component {
       <div>
         {content}
           <Collapse className="collapse-content" isOpen={this.state.collapse}>
-            <p>Test</p>
+            <Game />
           </Collapse>
       </div>
     );
