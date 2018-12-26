@@ -1,15 +1,33 @@
-const express = require('express')
-const path = require('path')
+
+const PORT        = process.env.PORT || 8080;
+const ENV         = process.env.ENV || 'development';
+const express     = require('express');
+const bodyParser  = require('body-parser');
+const sass        = require('node-sass-middleware');
+const bcrypt      = require('bcrypt');
+const cookieSession = require('cookie-session');
+const jwt = require('jsonwebtoken');
+const secret = process.env.SECRET
+const cookieParser = require('cookie-parser');
 const OverwatchLeague = require('overwatchleague');
-const OWL = new OverwatchLeague();
+const path = require('path');
 const axios = require('axios');
+const season1 = require('./season1.json')
+const knexConfig  = require('./knexfile');
+const knex        = require('knex')(knexConfig[ENV]);
+const morgan      = require('morgan');
+const knexLogger  = require('knex-logger');
 
-
-// Create the server
-const app = express()
+const app         = express();
+const OWL = new OverwatchLeague();
 
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
+
+
+// Mount all resource routes
+app.use('/users', usersRoutes(knex, bcrypt));
+
 
 
 
