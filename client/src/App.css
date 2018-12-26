@@ -50,27 +50,20 @@
 .carousel-caption h3{
   background-color:rgba(0, 0, 0, 0.5);
   border-radius: 25px;
-
+  position: relative;
+  width: 50%;
+  margin: auto;
 }
 
 .carousel-caption p{
   background-color:rgba(0, 0, 0, 0.5);
-  width: 200px;
-  margin: auto;
+
+  position: relative;
   width: 50%;
-  border-radius: 25px;
-
-}
-
-.carousel-caption{
-  position:relative;
-  width: 300px;
-  border-radius: 25px;
   margin: auto;
-
-
+  border-radius: 25px;
 }
 
-.carousel-caption:hover{
+.carousel-caption h3:hover{
   background-color:rgba(0, 0, 0, 0.7);
 }

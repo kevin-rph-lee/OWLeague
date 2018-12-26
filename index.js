@@ -12,7 +12,6 @@ const cookieParser = require('cookie-parser');
 const OverwatchLeague = require('overwatchleague');
 const path = require('path');
 const axios = require('axios');
-const season1 = require('./season1.json')
 const knexConfig  = require('./knexfile');
 const knex        = require('knex')(knexConfig[ENV]);
 const morgan      = require('morgan');
@@ -20,6 +19,11 @@ const knexLogger  = require('knex-logger');
 
 const app         = express();
 const OWL = new OverwatchLeague();
+
+
+// Seperated Routes for each Resource
+const usersRoutes = require('./routes/users');
+
 
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
@@ -99,8 +103,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 
-// Choose the port and start the server
-const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
   console.log(`Mixing it up on port ${PORT}`)
 })
