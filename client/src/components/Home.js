@@ -6,6 +6,7 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
+  Collapse,
   CarouselCaption
 } from 'reactstrap';
 import Loader from './Loader.js';
@@ -14,12 +15,13 @@ import Loader from './Loader.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0, items: [], loading: true };
+    this.state = { activeIndex: 0, items: [], loading: true, collapse: false };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
+    this.toggle = this.toggle.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
 
   }
@@ -49,6 +51,11 @@ class Home extends Component {
     .catch((error) => {
       console.log('error is ',error);
     })
+  }
+
+  toggle() {
+    console.log('click!')
+    this.setState({ collapse: !this.state.collapse });
   }
 
   onExiting() {
@@ -90,7 +97,9 @@ class Home extends Component {
           key={item.src}
         >
           <img src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.altText} captionHeader={item.caption} />
+          <div onClick={this.toggle} >
+            <CarouselCaption  onClick={this.toggle}  captionText={item.altText} captionHeader={item.caption} />
+          </div>
         </CarouselItem>
       );
     });
@@ -118,6 +127,9 @@ class Home extends Component {
     return (
       <div>
         {content}
+          <Collapse className="collapse-content" isOpen={this.state.collapse}>
+            <p>Test</p>
+          </Collapse>
       </div>
     );
   }
