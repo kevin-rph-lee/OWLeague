@@ -16,7 +16,7 @@ import Game from './Game.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null };
+    this.state = { activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, leagueData: null };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -33,6 +33,7 @@ class Home extends Component {
     })
     .then((response) => {
       const data = response.data.data
+      this.setState({leagueData: response.data.data})
       this.setState({loading:false})
       for(var i in data){
 
@@ -41,7 +42,8 @@ class Home extends Component {
         items.push({
           caption: data[i].friendlyName,
           src: data[i].image,
-          altText: 'Season 1'
+          altText: 'Season 1',
+          name: data[i]
         })
 
         this.setState({items: items})
@@ -55,11 +57,16 @@ class Home extends Component {
   }
 
   toggleCollapse(e) {
+    console.log(this.state.leagueData)
+    const activeStage = this.state.items[this.state.activeIndex].name
+    console.log(activeStage)
     if(this.state.collapse === false){
+      this.setState({activeCollapse:this.state.activeIndex})
       this.setState({collapse: true})
     } else {
       this.setState({collapse: false})
       setTimeout(function() { //Start the timer
+        this.setState({activeCollapse:this.state.activeIndex})
         this.setState({collapse: true})
       }.bind(this), 1000)
     }
@@ -97,6 +104,13 @@ class Home extends Component {
     let content = null;
 
     const { activeIndex } = this.state;
+
+
+    let games = this.state.items.map(item => {
+      return(
+        <Game />
+        )
+    })
 
     const slides = this.state.items.map((item) => {
       return (
@@ -137,8 +151,7 @@ class Home extends Component {
       <div>
         {content}
           <Collapse className="collapse-content" isOpen={this.state.collapse}>
-            <p>{this.state.activeCollapse}</p>
-            <Game />
+            {games}
           </Collapse>
       </div>
     );
