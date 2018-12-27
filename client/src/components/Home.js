@@ -16,13 +16,13 @@ import Game from './Game.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0, items: [], loading: true, collapse: false };
+    this.state = { activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
-    this.toggle = this.toggle.bind(this);
+    this.toggleCollapse = this.toggleCollapse.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
 
   }
@@ -54,9 +54,17 @@ class Home extends Component {
     })
   }
 
-  toggle(e) {
-
-    this.setState({ collapse: !this.state.collapse });
+  toggleCollapse(e) {
+    if(this.state.collapse === false){
+      this.setState({collapse: true})
+    } else {
+      this.setState({collapse: false})
+      setTimeout(function() { //Start the timer
+        this.setState({collapse: true})
+      }.bind(this), 1000)
+    }
+    // this.setState({activeCollapse: this.state.activeIndex})
+    // this.setState({ collapse: !this.state.collapse });
   }
 
   onExiting() {
@@ -98,8 +106,8 @@ class Home extends Component {
           key={item.src}
         >
           <img src={item.src} alt={item.altText} />
-          <div onClick={this.toggle} >
-            <CarouselCaption  onClick={this.toggle}  captionText={item.altText} captionHeader={item.caption} />
+          <div onClick={this.toggleCollapse} >
+            <CarouselCaption  onClick={this.toggleCollapse}  captionText={item.altText} captionHeader={item.caption} />
           </div>
         </CarouselItem>
       );
@@ -129,6 +137,7 @@ class Home extends Component {
       <div>
         {content}
           <Collapse className="collapse-content" isOpen={this.state.collapse}>
+            <p>{this.state.activeCollapse}</p>
             <Game />
           </Collapse>
       </div>
