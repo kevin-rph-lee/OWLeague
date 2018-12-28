@@ -17,13 +17,14 @@ const knex        = require('knex')(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+
 const app         = express();
 const OWL = new OverwatchLeague();
 
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
-
+const teamsRoutes = require('./routes/teams');
 
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
@@ -31,8 +32,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 
 // Mount all resource routes
 app.use('/users', usersRoutes(knex, bcrypt));
-
-
+app.use('/teams', usersRoutes(knex));
 
 
 app.get('/owl', function(req, res) {
@@ -43,6 +43,7 @@ app.get('/owl', function(req, res) {
     // console.log('Response ', response.data.data.stages)
     const stages = response.data.data.stages
     console.log('Got Data')
+
     for(let i = 0; i < stages.length; i ++){
       const stage = stages[i].slug;
       data[stage] = {}
