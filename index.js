@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 
 // Mount all resource routes
 app.use('/users', usersRoutes(knex, bcrypt));
-app.use('/teams', usersRoutes(knex));
+app.use('/teams', teamsRoutes(knex));
 
 
 app.get('/owl', function(req, res) {

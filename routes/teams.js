@@ -10,9 +10,8 @@ module.exports = (knex) => {
       .select('*')
       .from('teams')
       .then((results) => {
-        res.json({
-           results
-        });
+        res.send(results);
+        // res.sendStats(300)
       });
   });
   return router;
