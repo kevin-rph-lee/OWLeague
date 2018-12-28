@@ -16,7 +16,7 @@ import Game from './Game.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { teams:null, activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, leagueData: null };
+    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, leagueData: null };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -117,11 +117,20 @@ class Home extends Component {
     const { activeIndex } = this.state;
 
 
+
     let games = this.state.items.map(item => {
       return(
         <Game />
         )
     })
+
+
+    let teams = this.state.teams.map(item => {
+      return(
+        <p>item</p>
+        )
+    })
+
 
     const slides = this.state.items.map((item) => {
       return (
@@ -162,6 +171,9 @@ class Home extends Component {
       <div>
         {content}
           <Collapse className="collapse-content" isOpen={this.state.collapse}>
+            <div className="team-container">
+              <span>{teams}</span>
+            </div>
             {games}
           </Collapse>
       </div>
