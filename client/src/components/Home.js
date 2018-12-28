@@ -16,7 +16,7 @@ import Game from './Game.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, leagueData: null };
+    this.state = { teams:null, activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, leagueData: null };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -54,6 +54,17 @@ class Home extends Component {
     .catch((error) => {
       console.log('error is ',error);
     })
+
+    axios.get('teams/', {
+
+    })
+    .then((response) => {
+      this.setState({teams: response.data})
+    })
+    .catch((error) => {
+      console.log('error is ',error);
+    })
+
   }
 
   toggleCollapse(e) {
