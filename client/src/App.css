@@ -75,8 +75,17 @@
 }
 
 .team-icon {
-  width:50px;
+  width:55px;
+  margin:2px;
 }
+
+.team-icon:hover {
+  width:55px;
+  margin:2px;
+  background-color:rgba(0, 0, 0, 0.2);
+  border-radius: 15%;
+}
+
 
 .team-container{
   position: relative;
