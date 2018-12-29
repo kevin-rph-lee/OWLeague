@@ -14,12 +14,27 @@ class Game extends Component {
   }
 
   render() {
+
+    let team1Icon = this.props.match.team1.icon
+    let team2Icon = this.props.match.team2.icon
+
+    if(!team1Icon){
+      team1Icon = <img className="team-match-icon" src='https://visualpharm.com/assets/488/Overwatch-595b40b85ba036ed117da78e.svg'/>
+    } else {
+      team1Icon = <img className="team-match-icon" src={this.props.match.team1.icon} />
+    }
+
+    if(!team2Icon){
+      team2Icon = <img className="team-match-icon" src='https://visualpharm.com/assets/488/Overwatch-595b40b85ba036ed117da78e.svg'/>
+    } else {
+      team2Icon = <img className="team-match-icon" src={this.props.match.team2.icon} />
+    }
+
     return (
       <Media>
         <Media left href="#">
-          <img className="team-match-icon" src={this.props.match.team1.icon} alt="Smiley face" />
-          <img className="team-match-icon" src={this.props.match.team2.icon} alt="Smiley face" />
-
+          {team1Icon}
+          {team2Icon}
         </Media>
         <Media body>
           <Media heading>
