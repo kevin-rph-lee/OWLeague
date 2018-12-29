@@ -17,7 +17,7 @@ import Match from './Match.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, teamCollapse: false, activeCollapse: null, activeCollapseStage: [], leagueData: null };
+    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, teamCollapse: false, activeCollapse: null, activeCollapseStage: [], leagueData: null, activeCollapseName: null };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -77,6 +77,7 @@ class Home extends Component {
 
   toggleCollapse(e) {
     const activeStage = this.state.items[this.state.activeIndex].name
+    this.setState({activeCollapseName: this.state.items[this.state.activeIndex].caption})
     this.setState({activeCollapseStage: this.state.leagueData[this.state.items[this.state.activeIndex].name] })
     console.log(this.state.leagueData[this.state.items[this.state.activeIndex].name])
     if(this.state.collapse === false){
@@ -120,6 +121,7 @@ class Home extends Component {
 
     let content = null;
     let matches = null;
+    let activeStageName = null;
 
     const { activeIndex } = this.state;
 
@@ -142,6 +144,7 @@ class Home extends Component {
       })
 
     }
+
 
     const slides = this.state.items.map((item) => {
       return (
@@ -182,6 +185,7 @@ class Home extends Component {
       <div>
         {content}
           <Collapse className="collapse-content" isOpen={this.state.collapse}>
+           <h5>Showing: {this.state.activeCollapseName}</h5>
            <Button className= "team-filter-button" onClick={this.toggleTeamCollapse} color="primary" >Team Filters</Button>
             <Collapse isOpen={this.state.teamCollapse}>
               <div className="team-container">
