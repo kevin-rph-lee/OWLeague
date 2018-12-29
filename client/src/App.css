@@ -86,6 +86,10 @@
   border-radius: 15%;
 }
 
+.team-match-icon{
+  width: 42px;
+  height:42px;
+}
 
 .team-container{
   position: relative;

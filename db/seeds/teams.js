@@ -13,7 +13,6 @@ exports.seed = function(knex, Promise) {
                               icon: 'https://liquipedia.net/commons/images/0/01/Dallas_Fuel_logo.png'}),
         knex('teams').insert({name: 'Guangzhou Charge',
                               icon: 'https://liquipedia.net/commons/images/2/26/Guangzhou_Charge_logo.png'}),
-
         knex('teams').insert({name: 'Hangzhou Spark',
                               icon: 'https://liquipedia.net/commons/images/f/f1/Hangzhou_Spark_logo.png'}),
         knex('teams').insert({name: 'Houston Outlaws',

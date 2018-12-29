@@ -78,8 +78,8 @@ app.get('/owl', function(req, res) {
 
         const match = {
           id: matchData.id,
-          team1: matchData.competitors[0].name,
-          team2: matchData.competitors[1].name,
+          team1: {name:matchData.competitors[0].name, icon: matchData.competitors[0].icon},
+          team2: {name:matchData.competitors[1].name, icon: matchData.competitors[1].icon},
           winner: matchData.winner.name,
           date: matchData.startDate,
           games: matchData.games

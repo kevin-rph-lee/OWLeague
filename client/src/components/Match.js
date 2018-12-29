@@ -17,11 +17,13 @@ class Game extends Component {
     return (
       <Media>
         <Media left href="#">
-          <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
+          <img className="team-match-icon" src={this.props.match.team1.icon} alt="Smiley face" />
+          <img className="team-match-icon" src={this.props.match.team2.icon} alt="Smiley face" />
+
         </Media>
         <Media body>
           <Media heading>
-          {this.props.match.team1} VS {this.props.match.team2}
+          {this.props.match.team1.name} VS {this.props.match.team2.name}
           </Media>
         </Media>
       </Media>
