@@ -73,3 +73,13 @@
   margin-right: 15%;
   margin-top: 50px;
 }
+
+.team-icon {
+  width:50px;
+}
+
+.team-container{
+  position: relative;
+  width: 50%;
+  margin: auto;
+}

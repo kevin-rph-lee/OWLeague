@@ -16,7 +16,7 @@ import Game from './Game.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, leagueData: null };
+    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, activeCollapseStage: [], leagueData: null };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -33,6 +33,7 @@ class Home extends Component {
     })
     .then((response) => {
       const data = response.data.data
+      // console.log('League Data ', response.data.data)
       this.setState({leagueData: response.data.data})
       this.setState({loading:false})
       for(var i in data){
@@ -43,7 +44,7 @@ class Home extends Component {
           caption: data[i].friendlyName,
           src: data[i].image,
           altText: 'Season 1',
-          name: data[i]
+          name: i
         })
 
         this.setState({items: items})
@@ -59,6 +60,7 @@ class Home extends Component {
 
     })
     .then((response) => {
+      // console.log('Teams ', response.data)
       this.setState({teams: response.data})
     })
     .catch((error) => {
@@ -68,9 +70,9 @@ class Home extends Component {
   }
 
   toggleCollapse(e) {
-    console.log(this.state.leagueData)
     const activeStage = this.state.items[this.state.activeIndex].name
-    console.log(activeStage)
+    this.setState({activeCollapseStage: this.state.leagueData[this.state.items[this.state.activeIndex].name] })
+    console.log(this.state.leagueData[this.state.items[this.state.activeIndex].name])
     if(this.state.collapse === false){
       this.setState({activeCollapse:this.state.activeIndex})
       this.setState({collapse: true})
@@ -81,8 +83,6 @@ class Home extends Component {
         this.setState({collapse: true})
       }.bind(this), 1000)
     }
-    // this.setState({activeCollapse: this.state.activeIndex})
-    // this.setState({ collapse: !this.state.collapse });
   }
 
   onExiting() {
@@ -113,24 +113,31 @@ class Home extends Component {
   render() {
 
     let content = null;
+    let matches = null;
 
     const { activeIndex } = this.state;
 
-
-
-    let games = this.state.items.map(item => {
-      return(
-        <Game />
-        )
-    })
-
-
+    console.log('Teams ', this.state.teams)
     let teams = this.state.teams.map(item => {
       return(
-        <p>item</p>
+        <span>
+        <img className="team-icon" src={item.icon} />
+        </span>
         )
     })
 
+    console.log('activecollapse ', this.state.activeCollapseStage)
+    if(this.state.activeCollapseStage.matches !== undefined){
+
+      let matchArray = this.state.activeCollapseStage.matches
+      console.log('Match Array ', matchArray)
+      matches = matchArray.map(item => {
+        return(
+          <p>Test</p>
+          )
+      })
+
+    }
 
     const slides = this.state.items.map((item) => {
       return (
@@ -156,7 +163,7 @@ class Home extends Component {
               activeIndex={activeIndex}
               next={this.next}
               previous={this.previous}
-              // interval={0}
+              interval={0}
             >
               <CarouselIndicators items={this.state.items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
               {slides}
@@ -174,7 +181,7 @@ class Home extends Component {
             <div className="team-container">
               <span>{teams}</span>
             </div>
-            {games}
+            {matches}
           </Collapse>
       </div>
     );
