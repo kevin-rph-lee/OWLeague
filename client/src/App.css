@@ -83,3 +83,8 @@
   width: 50%;
   margin: auto;
 }
+
+.team-filter-button{
+  position: relative;
+  margin: 30px;
+}

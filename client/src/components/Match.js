@@ -21,9 +21,8 @@ class Game extends Component {
         </Media>
         <Media body>
           <Media heading>
-            Media heading
+          {this.props.match.team1} VS {this.props.match.team2}
           </Media>
-          {this.props.gameInfo}
         </Media>
       </Media>
     );

@@ -8,21 +8,23 @@ import {
   CarouselIndicators,
   Collapse,
   CarouselCaption,
-  Media
+  Media,
+  Button
 } from 'reactstrap';
 import Loader from './Loader.js';
-import Game from './Game.js';
+import Match from './Match.js';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, activeCollapse: null, activeCollapseStage: [], leagueData: null };
+    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, teamCollapse: false, activeCollapse: null, activeCollapseStage: [], leagueData: null };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.toggleTeamCollapse = this.toggleTeamCollapse.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
 
   }
@@ -69,6 +71,10 @@ class Home extends Component {
 
   }
 
+  toggleTeamCollapse() {
+    this.setState({ teamCollapse: !this.state.teamCollapse });
+  }
+
   toggleCollapse(e) {
     const activeStage = this.state.items[this.state.activeIndex].name
     this.setState({activeCollapseStage: this.state.leagueData[this.state.items[this.state.activeIndex].name] })
@@ -81,7 +87,7 @@ class Home extends Component {
       setTimeout(function() { //Start the timer
         this.setState({activeCollapse:this.state.activeIndex})
         this.setState({collapse: true})
-      }.bind(this), 1000)
+      }.bind(this), 500)
     }
   }
 
@@ -117,7 +123,6 @@ class Home extends Component {
 
     const { activeIndex } = this.state;
 
-    console.log('Teams ', this.state.teams)
     let teams = this.state.teams.map(item => {
       return(
         <span>
@@ -126,14 +131,13 @@ class Home extends Component {
         )
     })
 
-    console.log('activecollapse ', this.state.activeCollapseStage)
     if(this.state.activeCollapseStage.matches !== undefined){
 
       let matchArray = this.state.activeCollapseStage.matches
-      console.log('Match Array ', matchArray)
-      matches = matchArray.map(item => {
+
+      matches = matchArray.map(match => {
         return(
-          <p>Test</p>
+          <Match match={match} team1={match.team1} team2={match.team2}/>
           )
       })
 
@@ -178,9 +182,12 @@ class Home extends Component {
       <div>
         {content}
           <Collapse className="collapse-content" isOpen={this.state.collapse}>
-            <div className="team-container">
-              <span>{teams}</span>
-            </div>
+           <Button className= "team-filter-button" onClick={this.toggleTeamCollapse} color="primary" >Team Filters</Button>
+            <Collapse isOpen={this.state.teamCollapse}>
+              <div className="team-container">
+                <span>{teams}</span>
+              </div>
+            </Collapse>
             {matches}
           </Collapse>
       </div>
