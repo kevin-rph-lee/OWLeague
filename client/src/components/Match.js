@@ -32,9 +32,12 @@ class Match extends Component {
 
 
     const games = this.props.match.games.map((game) => {
-      return (
-        <Game game={game} team1AbbreviatedName={this.props.match.team1.abbreviatedName} team2AbbreviatedName={this.props.match.team2.abbreviatedName} />
-      );
+      if(game.status === 'CONCLUDED'){
+
+        return (
+            <Game game={game} team1AbbreviatedName={this.props.match.team1.abbreviatedName} team2AbbreviatedName={this.props.match.team2.abbreviatedName} />
+        );
+      }
     });
 
     if(!team1Icon){
@@ -50,7 +53,7 @@ class Match extends Component {
     }
 
     return (
-      <Media>
+      <Media className='match'>
         <Media left href="#">
           {team1Icon}
           {team2Icon}
@@ -76,7 +79,7 @@ class Match extends Component {
                   {games}
 
               </Table>
-              <h5>Winner: {this.props.match.winner}</h5>
+              <h5>Winner: <b> {this.props.match.winner} </b></h5>
             </Collapse>
 
 

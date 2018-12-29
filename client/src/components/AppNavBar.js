@@ -207,7 +207,7 @@ class AppNavBar extends Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">React-Express skeleton</NavbarBrand>
+          <NavbarBrand href="/">Overwatch League app</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavBarDropDown} />
           <Collapse isOpen={this.state.dropDownIsOpen} navbar>
             <Nav className="ml-auto" navbar>
