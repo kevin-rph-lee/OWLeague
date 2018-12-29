@@ -15,40 +15,17 @@ class Game extends Component {
   }
 
   render() {
+
+
       return (
-        <div>
-          <Table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </Table>
-          <p>Map: {this.props.game.attributes.map}</p>
-        </div>
+        <tbody>
+          <tr>
+            <td>{this.props.game.points[0]}</td>
+            <td>{this.props.game.points[1]}</td>
+            <td>{this.props.game.attributes.map}</td>
+            <td></td>
+          </tr>
+        </tbody>
       )
   }
 

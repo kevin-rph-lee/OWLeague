@@ -5,7 +5,8 @@ import Game from './Game.js';
 import {
   Media,
   Button,
-  Collapse
+  Collapse,
+  Table
 } from 'reactstrap';
 
 
@@ -32,7 +33,7 @@ class Match extends Component {
 
     const games = this.props.match.games.map((game) => {
       return (
-        <Game game={game} />
+        <Game game={game} team1AbbreviatedName={this.props.match.team1.abbreviatedName} team2AbbreviatedName={this.props.match.team2.abbreviatedName} />
       );
     });
 
@@ -62,7 +63,19 @@ class Match extends Component {
           <div>
             <Button color="primary" onClick={this.toggle} size="sm">View Maps</Button>
             <Collapse isOpen={this.state.collapse}>
-              {games}
+              <Table>
+                <thead>
+                  <tr>
+                    <th>{this.props.match.team1.abbreviatedName}</th>
+                    <th>{this.props.match.team2.abbreviatedName}</th>
+                    <th>Map</th>
+                    <th>VODS</th>
+                  </tr>
+                </thead>
+
+                  {games}
+
+              </Table>
               <h5>Winner: {this.props.match.winner}</h5>
             </Collapse>
 
