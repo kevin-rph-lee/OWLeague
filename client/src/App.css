@@ -73,3 +73,39 @@
   margin-right: 15%;
   margin-top: 50px;
 }
+
+.team-icon {
+  width:55px;
+  margin:2px;
+}
+
+.team-icon:hover {
+  width:55px;
+  margin:2px;
+  background-color:rgba(0, 0, 0, 0.2);
+  border-radius: 15%;
+}
+
+.team-match-icon{
+  width: 42px;
+  height:42px;
+}
+
+.team-container{
+  position: relative;
+  width: 50%;
+  margin: auto;
+}
+
+.team-filter-button{
+  position: relative;
+  margin: 30px;
+}
+
+.match{
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}

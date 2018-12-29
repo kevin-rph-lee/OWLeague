@@ -74,12 +74,12 @@ app.get('/owl', function(req, res) {
       for(let x = 0; x < stages[i].matches.length; x ++){
 
         const matchData = stages[i].matches[x]
-        // console.log(matchData);
+        console.log(matchData.games);
 
         const match = {
           id: matchData.id,
-          team1: matchData.competitors[0].name,
-          team2: matchData.competitors[1].name,
+          team1: {name:matchData.competitors[0].name, icon: matchData.competitors[0].icon, abbreviatedName: matchData.competitors[0].abbreviatedName},
+          team2: {name:matchData.competitors[1].name, icon: matchData.competitors[1].icon, abbreviatedName: matchData.competitors[1].abbreviatedName},
           winner: matchData.winner.name,
           date: matchData.startDate,
           games: matchData.games
