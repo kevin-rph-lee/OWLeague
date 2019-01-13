@@ -39,7 +39,6 @@ app.use('/users', usersRoutes(knex, bcrypt));
 
 app.get('/teams', function(req, res) {
   console.log('Teams route')
-  router.get('/', (req, res) => {
     knex
       .select('*')
       .from('teams')
@@ -48,7 +47,6 @@ app.get('/teams', function(req, res) {
         res.send(results);
         // res.sendStats(300)
       });
-  });
 });
 
 app.get('/owl', function(req, res) {
