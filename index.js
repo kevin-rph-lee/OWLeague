@@ -24,7 +24,7 @@ const OWL = new OverwatchLeague();
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
-const teamsRoutes = require('./routes/teams');
+// const teamsRoutes = require('./routes/teams');
 
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
@@ -32,8 +32,24 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 
 // Mount all resource routes
 app.use('/users', usersRoutes(knex, bcrypt));
-app.use('/teams', teamsRoutes(knex));
+// app.use('/teams', teamsRoutes(knex));
 
+
+
+
+app.get('/teams', function(req, res) {
+
+  res.sendStatus(200)
+  // router.get('/', (req, res) => {
+  //   knex
+  //     .select('*')
+  //     .from('teams')
+  //     .then((results) => {
+  //       res.send(results);
+  //       // res.sendStats(300)
+  //     });
+  // });
+});
 
 app.get('/owl', function(req, res) {
   let data = {};
