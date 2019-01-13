@@ -7,13 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "knex": "./node_modules/.bin/knex"
+    "knex": "./node_modules/.bin/knex",
+    "dev": "concurrently --kill-others-on-fail \"node index.js\" \"cd client && npm start\""
   },
   "author": "Kevin Lee",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.1.0",
@@ -26,7 +29,6 @@
     "node-sass-middleware": "^0.11.0",
     "overwatchleague": "^1.5.0",
     "path": "^0.12.7",
-    "axios": "^0.18.0",
     "pg": "^7.6.1"
   },
   "engines": {

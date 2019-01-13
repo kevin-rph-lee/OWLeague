@@ -24,6 +24,7 @@ class Home extends Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.toggleFilter = this.toggleFilter.bind(this);
     this.toggleTeamCollapse = this.toggleTeamCollapse.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -93,6 +94,11 @@ class Home extends Component {
     }
   }
 
+
+  toggleFilter() {
+    console.log('Click')
+  }
+
   onExiting() {
     this.animating = true;
   }
@@ -129,7 +135,7 @@ class Home extends Component {
     let teams = this.state.teams.map(item => {
       return(
         <span>
-        <img className="team-icon" src={item.icon} />
+        <img className="team-icon" src={item.icon} onClick={this.toggleFilter} />
         </span>
         )
     })
