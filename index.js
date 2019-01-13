@@ -38,13 +38,13 @@ app.use('/users', usersRoutes(knex, bcrypt));
 
 
 app.get('/teams', function(req, res) {
-
-  // res.sendStatus(200)
+  console.log('Teams route')
   router.get('/', (req, res) => {
     knex
       .select('*')
       .from('teams')
       .then((results) => {
+        console.log(results)
         res.send(results);
         // res.sendStats(300)
       });
@@ -53,12 +53,12 @@ app.get('/teams', function(req, res) {
 
 app.get('/owl', function(req, res) {
   let data = {};
-  console.log('HIt route')
+  console.log('HIt OWL route')
 
   axios.get('https://api.overwatchleague.com/schedule?expand=team.content&locale=en_US&season=2018').then(response => {
     // console.log('Response ', response.data.data.stages)
     const stages = response.data.data.stages
-    console.log('Got Data')
+    // console.log('Got Data')
 
     for(let i = 0; i < stages.length; i ++){
       const stage = stages[i].slug;
@@ -90,7 +90,7 @@ app.get('/owl', function(req, res) {
       for(let x = 0; x < stages[i].matches.length; x ++){
 
         const matchData = stages[i].matches[x]
-        console.log(matchData.games);
+        // console.log(matchData.games);
 
         const match = {
           id: matchData.id,
