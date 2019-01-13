@@ -39,16 +39,16 @@ app.use('/users', usersRoutes(knex, bcrypt));
 
 app.get('/teams', function(req, res) {
 
-  res.sendStatus(200)
-  // router.get('/', (req, res) => {
-  //   knex
-  //     .select('*')
-  //     .from('teams')
-  //     .then((results) => {
-  //       res.send(results);
-  //       // res.sendStats(300)
-  //     });
-  // });
+  // res.sendStatus(200)
+  router.get('/', (req, res) => {
+    knex
+      .select('*')
+      .from('teams')
+      .then((results) => {
+        res.send(results);
+        // res.sendStats(300)
+      });
+  });
 });
 
 app.get('/owl', function(req, res) {
