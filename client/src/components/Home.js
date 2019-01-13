@@ -62,6 +62,7 @@ class Home extends Component {
 
     })
     .then((response) => {
+      console.log('Got team Data')
       // console.log('Teams ', response.data)
       this.setState({teams: response.data})
     })

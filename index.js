@@ -1,6 +1,6 @@
 
 const PORT        = process.env.PORT || 8080;
-const ENV         = process.env.ENV || 'development';
+const ENV         = process.env.ENV || 'production';
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const sass        = require('node-sass-middleware');
@@ -35,14 +35,16 @@ app.use('/users', usersRoutes(knex, bcrypt));
 app.use('/teams', teamsRoutes(knex));
 
 
+
+
 app.get('/owl', function(req, res) {
   let data = {};
-  console.log('HIt route')
+  console.log('HIt OWL route')
 
   axios.get('https://api.overwatchleague.com/schedule?expand=team.content&locale=en_US&season=2018').then(response => {
     // console.log('Response ', response.data.data.stages)
     const stages = response.data.data.stages
-    console.log('Got Data')
+    // console.log('Got Data')
 
     for(let i = 0; i < stages.length; i ++){
       const stage = stages[i].slug;
@@ -74,7 +76,7 @@ app.get('/owl', function(req, res) {
       for(let x = 0; x < stages[i].matches.length; x ++){
 
         const matchData = stages[i].matches[x]
-        console.log(matchData.games);
+        // console.log(matchData.games);
 
         const match = {
           id: matchData.id,
