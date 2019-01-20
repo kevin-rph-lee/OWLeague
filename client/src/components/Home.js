@@ -121,10 +121,16 @@ class Home extends Component {
 
 
   toggleTeamFilter(e) {
-     console.log(e.target.getAttribute('data-name'))
-     for(var i; i < this.activeCollapseMatches; i++){
-      console.log(this.activeCollapseMatches[i]);
-     }
+    const activeCollapseMatches = this.state.activeCollapseMatchesUnfiltered
+    console.log('Unfiltered matches ', activeCollapseMatches)
+    let filteredMatches = [];
+    for(var i = 0; i< activeCollapseMatches.length; i++){
+      if(activeCollapseMatches[i].team1.name === e.target.getAttribute('data-name') || activeCollapseMatches[i].team2.name === e.target.getAttribute('data-name')  ){
+        filteredMatches.push(activeCollapseMatches[i])
+      }
+    }
+
+    this.setState({activeCollapseMatches: filteredMatches})
   }
 
   onExiting() {
