@@ -13,6 +13,9 @@ import {
 } from 'reactstrap';
 import Loader from './Loader.js';
 import Match from './Match.js';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
 
 class Home extends Component {
   constructor(props) {
@@ -89,6 +92,16 @@ class Home extends Component {
 
   }
 
+  errorPopUp = (message) => {
+      // e.preventDefault();
+      Alert.info(message, {
+          position: 'top-right',
+          effect: 'bouncyflip',
+          offset: 100
+      });
+  }
+
+
   toggleTeamCollapse() {
     this.setState({ teamCollapse: !this.state.teamCollapse });
   }
@@ -129,8 +142,11 @@ class Home extends Component {
         filteredMatches.push(activeCollapseMatches[i])
       }
     }
-
-    this.setState({activeCollapseMatches: filteredMatches})
+    if(filteredMatches.length === 0){
+      this.errorPopUp('No matches found')
+    } else {
+      this.setState({activeCollapseMatches: filteredMatches})
+    }
   }
 
   onExiting() {
@@ -234,6 +250,7 @@ class Home extends Component {
             </Collapse>
               {matches}
           </Collapse>
+          <Alert timeout={5000} stack={{limit: 1}} />
       </div>
     );
   }
