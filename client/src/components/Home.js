@@ -114,9 +114,9 @@ class Home extends Component {
   }
 
 
-  toggleFilter() {
-    console.log(this.state.activeCollapseName)
-    console.log(this.state.activeCollapseStage)
+  toggleFilter(e) {
+     console.log(e.target.getAttribute('data-name'))
+
   }
 
   onExiting() {
@@ -155,7 +155,7 @@ class Home extends Component {
     let teams = this.state.teams.map(item => {
       return(
         <span>
-        <img className="team-icon" src={item.icon} onClick={this.toggleFilter} />
+        <img className="team-icon" src={item.icon} onClick={(e) => this.toggleFilter(e)} data-name = {item.name}/>
         </span>
         )
     })
