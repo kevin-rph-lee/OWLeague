@@ -27,7 +27,8 @@ class Home extends Component {
       activeCollapseStage: [],
       leagueData: null,
       activeCollapseName: null,
-      activeCollapseMatches: []
+      activeCollapseMatches: [],
+      activeCollapseMatchesUnfiltered: []
        };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -35,13 +36,10 @@ class Home extends Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
-    this.toggleFilter = this.toggleFilter.bind(this);
+    this.toggleTeamFilter = this.toggleTeamFilter.bind(this);
     this.toggleTeamCollapse = this.toggleTeamCollapse.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
 
-  }
-
-  componentDidMount = () => {
     axios.get('owl/', {
 
     })
@@ -82,6 +80,13 @@ class Home extends Component {
       console.log('error is ',error);
     })
 
+
+
+  }
+
+  componentDidMount = () => {
+
+
   }
 
   toggleTeamCollapse() {
@@ -94,6 +99,7 @@ class Home extends Component {
     this.setState({activeCollapseName: this.state.items[this.state.activeIndex].caption})
     this.setState({activeCollapseStage: this.state.leagueData[this.state.items[this.state.activeIndex].name] })
     this.setState({activeCollapseMatches: this.state.leagueData[this.state.items[this.state.activeIndex].name].matches })
+    this.setState({activeCollapseMatchesUnfiltered: this.state.leagueData[this.state.items[this.state.activeIndex].name].matches })
     // console.log('Friendly Name ', this.state.items[this.state.activeIndex].caption)
     // console.log('Test ', this.state.leagueData)
     // console.log('Name ', this.state.items[this.state.activeIndex].name)
@@ -114,9 +120,11 @@ class Home extends Component {
   }
 
 
-  toggleFilter(e) {
+  toggleTeamFilter(e) {
      console.log(e.target.getAttribute('data-name'))
-
+     for(var i; i < this.activeCollapseMatches; i++){
+      console.log(this.activeCollapseMatches[i]);
+     }
   }
 
   onExiting() {
@@ -155,7 +163,7 @@ class Home extends Component {
     let teams = this.state.teams.map(item => {
       return(
         <span>
-        <img className="team-icon" src={item.icon} onClick={(e) => this.toggleFilter(e)} data-name = {item.name}/>
+        <img className="team-icon" src={item.icon} onClick={(e) => this.toggleTeamFilter(e)} data-name = {item.name}/>
         </span>
         )
     })
