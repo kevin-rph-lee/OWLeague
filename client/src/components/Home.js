@@ -17,7 +17,18 @@ import Match from './Match.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { teams:[], activeIndex: 0, items: [], loading: true, collapse: false, teamCollapse: false, activeCollapse: null, activeCollapseStage: [], leagueData: null, activeCollapseName: null };
+    this.state = {
+      teams:[],
+      activeIndex: 0,
+      items: [],
+      loading: true,
+      collapse: false,
+      teamCollapse: false,
+      activeCollapseStage: [],
+      leagueData: null,
+      activeCollapseName: null,
+      activeCollapseMatches: []
+       };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -63,7 +74,7 @@ class Home extends Component {
 
     })
     .then((response) => {
-      console.log('Got team Data')
+      // console.log('Got team Data')
       // console.log('Teams ', response.data)
       this.setState({teams: response.data})
     })
@@ -78,25 +89,34 @@ class Home extends Component {
   }
 
   toggleCollapse(e) {
+
     const activeStage = this.state.items[this.state.activeIndex].name
     this.setState({activeCollapseName: this.state.items[this.state.activeIndex].caption})
     this.setState({activeCollapseStage: this.state.leagueData[this.state.items[this.state.activeIndex].name] })
-    console.log(this.state.leagueData[this.state.items[this.state.activeIndex].name])
+    this.setState({activeCollapseMatches: this.state.leagueData[this.state.items[this.state.activeIndex].name].matches })
+    // console.log('Friendly Name ', this.state.items[this.state.activeIndex].caption)
+    // console.log('Test ', this.state.leagueData)
+    // console.log('Name ', this.state.items[this.state.activeIndex].name)
+    // console.log('ACtive Index ', this.state.activeIndex)
+    // console.log('ActiveCollapseStage: ', this.state.leagueData[this.state.items[this.state.activeIndex].name])
     if(this.state.collapse === false){
-      this.setState({activeCollapse:this.state.activeIndex})
+
       this.setState({collapse: true})
+
     } else {
+
       this.setState({collapse: false})
       setTimeout(function() { //Start the timer
-        this.setState({activeCollapse:this.state.activeIndex})
         this.setState({collapse: true})
+
       }.bind(this), 500)
     }
   }
 
 
   toggleFilter() {
-    console.log('Click')
+    console.log(this.state.activeCollapseName)
+    console.log(this.state.activeCollapseStage)
   }
 
   onExiting() {
@@ -140,9 +160,9 @@ class Home extends Component {
         )
     })
 
-    if(this.state.activeCollapseStage.matches !== undefined){
+    if(this.state.activeCollapseMatches !== undefined || this.state.activeCollapseMatches !== null ){
 
-      let matchArray = this.state.activeCollapseStage.matches
+      let matchArray = this.state.activeCollapseMatches
 
       matches = matchArray.map(match => {
         return(
@@ -151,7 +171,6 @@ class Home extends Component {
       })
 
     }
-
 
     const slides = this.state.items.map((item) => {
       return (
@@ -199,7 +218,7 @@ class Home extends Component {
                 <span>{teams}</span>
               </div>
             </Collapse>
-            {matches}
+              {matches}
           </Collapse>
       </div>
     );
