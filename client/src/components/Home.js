@@ -31,7 +31,8 @@ class Home extends Component {
       leagueData: null,
       activeCollapseName: null,
       activeCollapseMatches: [],
-      activeCollapseMatchesUnfiltered: []
+      activeCollapseMatchesUnfiltered: [],
+      teamFilterName: 'No Filter'
        };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -148,11 +149,13 @@ class Home extends Component {
       this.errorPopUp('No matches found')
     } else {
       this.setState({activeCollapseMatches: filteredMatches})
+      this.setState({teamFilterName: e.target.getAttribute('data-name')})
     }
   }
 
   removeTeamFilter(){
     this.setState({activeCollapseMatches: this.state.activeCollapseMatchesUnfiltered})
+    this.setState({teamFilterName: 'No Filter'})
   }
 
   onExiting() {
@@ -254,6 +257,7 @@ class Home extends Component {
                 <span>{teams}</span>
                 <Button className= "remove-team-filter" onClick={this.removeTeamFilter} color="secondary">Remove Filter</Button>
               </div>
+              <h5 className="team-filter-name">Current team filter: <b>{this.state.teamFilterName}</b> </h5>
             </Collapse>
               {matches}
           </Collapse>
