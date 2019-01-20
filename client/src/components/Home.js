@@ -41,7 +41,9 @@ class Home extends Component {
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.toggleTeamFilter = this.toggleTeamFilter.bind(this);
     this.toggleTeamCollapse = this.toggleTeamCollapse.bind(this);
+    this.removeTeamFilter = this.removeTeamFilter.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+
 
     axios.get('owl/', {
 
@@ -135,7 +137,7 @@ class Home extends Component {
 
   toggleTeamFilter(e) {
     const activeCollapseMatches = this.state.activeCollapseMatchesUnfiltered
-    console.log('Unfiltered matches ', activeCollapseMatches)
+    // console.log('Unfiltered matches ', activeCollapseMatches)
     let filteredMatches = [];
     for(var i = 0; i< activeCollapseMatches.length; i++){
       if(activeCollapseMatches[i].team1.name === e.target.getAttribute('data-name') || activeCollapseMatches[i].team2.name === e.target.getAttribute('data-name')  ){
@@ -147,6 +149,10 @@ class Home extends Component {
     } else {
       this.setState({activeCollapseMatches: filteredMatches})
     }
+  }
+
+  removeTeamFilter(){
+    this.setState({activeCollapseMatches: this.state.activeCollapseMatchesUnfiltered})
   }
 
   onExiting() {
@@ -246,6 +252,7 @@ class Home extends Component {
             <Collapse isOpen={this.state.teamCollapse}>
               <div className="team-container">
                 <span>{teams}</span>
+                <Button className= "remove-team-filter" onClick={this.removeTeamFilter} color="secondary">Remove Filter</Button>
               </div>
             </Collapse>
               {matches}
