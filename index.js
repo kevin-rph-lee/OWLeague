@@ -1,6 +1,6 @@
 
 const PORT        = process.env.PORT || 8080;
-const ENV         = "development";
+
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const sass        = require('node-sass-middleware');
@@ -13,6 +13,7 @@ const OverwatchLeague = require('overwatchleague');
 const path = require('path');
 const axios = require('axios');
 const knexConfig  = require('./knexfile');
+const ENV = process.env.ENV || 'production'
 const knex        = require('knex')(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
@@ -101,5 +102,7 @@ app.get('*', (req, res) => {
 })
 
 app.listen(PORT, () => {
+  console.log('ENV ', process.env.ENV)
+  console.log('Using environment: ', ENV)
   console.log(`Mixing it up on port ${PORT}`)
 })
