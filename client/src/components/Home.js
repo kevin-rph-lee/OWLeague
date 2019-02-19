@@ -205,7 +205,7 @@ class Home extends Component {
 
       matches = matchArray.map(match => {
         return(
-          <Match match={match} team1={match.team1} team2={match.team2}/>
+          <Match match={match} team1={match.team1} team2={match.team2} key={match.id}/>
           )
       })
 
