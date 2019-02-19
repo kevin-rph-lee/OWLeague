@@ -39,7 +39,7 @@ class Home extends Component {
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
-    this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.openStage = this.openStage.bind(this);
     this.toggleTeamFilter = this.toggleTeamFilter.bind(this);
     this.toggleTeamCollapse = this.toggleTeamCollapse.bind(this);
     this.removeTeamFilter = this.removeTeamFilter.bind(this);
@@ -109,7 +109,7 @@ class Home extends Component {
     this.setState({ teamCollapse: !this.state.teamCollapse });
   }
 
-  toggleCollapse(e) {
+  openStage(e) {
 
     const activeStage = this.state.items[this.state.activeIndex].name
     this.setState({activeCollapseName: this.state.items[this.state.activeIndex].caption})
@@ -205,7 +205,7 @@ class Home extends Component {
 
       matches = matchArray.map(match => {
         return(
-          <Match match={match} team1={match.team1} team2={match.team2}/>
+          <Match match={match} team1={match.team1} team2={match.team2} key={match.id}/>
           )
       })
 
@@ -219,8 +219,8 @@ class Home extends Component {
           key={item.src}
         >
           <img src={item.src} alt={item.altText} />
-          <div onClick={this.toggleCollapse} >
-            <CarouselCaption  onClick={this.toggleCollapse}  captionText={item.altText} captionHeader={item.caption} />
+          <div onClick={this.openStage} >
+            <CarouselCaption  onClick={this.openStage}  captionText={item.altText} captionHeader={item.caption} />
           </div>
         </CarouselItem>
       );
