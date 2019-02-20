@@ -30,12 +30,12 @@ const teamsRoutes = require('./routes/teams');
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Mount all resource routes
 app.use('/users', usersRoutes(knex, bcrypt));
 app.use('/teams', teamsRoutes(knex));
-
-
 
 
 app.get('/owl', function(req, res) {

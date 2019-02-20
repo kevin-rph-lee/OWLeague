@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
-
+import axios from 'axios'
 
 import {
   Collapse,
@@ -89,7 +89,19 @@ class AppNavBar extends Component {
       this.setState({registerModalIsOpen: false});
       this.setState({email: ''});
       this.setState({password: ''});
-    }).then((u)=>{console.log(u)})
+      console.log('User ',u.user.uid);
+
+    axios.post('/users/register', {
+         uid: u.user.uid
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    }).then((u)=>{})
     .catch((error) => {
         this.errorPopUp(error.message);
       })
