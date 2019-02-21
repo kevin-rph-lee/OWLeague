@@ -71,11 +71,9 @@ class AppNavBar extends Component {
   login = (e) => {
     e.preventDefault();
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-      console.log('login ', u)
       this.setState({loginModalIsOpen: false});
       this.setState({registerModalIsOpen: false});
       this.setState({email: ''});
-      console.log('User ',u.user.uid);
       this.props.setUID(u.user.uid)
     }).catch((error) => {
         this.errorPopUp(error.message);
@@ -90,20 +88,20 @@ class AppNavBar extends Component {
       this.setState({registerModalIsOpen: false});
       this.setState({email: ''});
       this.setState({password: ''});
+      this.props.setUID(u.user.uid)
+      axios.post('/users/register', {
+           uid: u.user.uid
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-    axios.post('/users/register', {
-         uid: u.user.uid
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    }).then((u)=>{})
-    .catch((error) => {
-        this.errorPopUp(error.message);
+      }).then((u)=>{})
+      .catch((error) => {
+          this.errorPopUp(error.message);
       })
   }
 
