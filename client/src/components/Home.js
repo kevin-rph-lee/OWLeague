@@ -32,7 +32,8 @@ class Home extends Component {
       activeCollapseName: null,
       activeCollapseMatches: [],
       activeCollapseMatchesUnfiltered: [],
-      teamFilterName: 'No Filter'
+      teamFilterName: 'No Filter',
+      uid: null
        };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -103,6 +104,8 @@ class Home extends Component {
           offset: 100
       });
   }
+
+
 
 
   toggleTeamCollapse() {

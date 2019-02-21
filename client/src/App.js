@@ -19,8 +19,10 @@ class App extends Component {
     library.add(faCog)
     this.state = ({
       user: null,
+      UID: null
     });
     this.authListener = this.authListener.bind(this);
+    this.setUID = this.setUID.bind(this);
   }
 
 
@@ -30,6 +32,11 @@ class App extends Component {
     this.authListener();
   }
 
+
+  setUID = (uid) => {
+      console.log('attempting to set uid ', uid)
+      this.setState({uid:uid})
+  }
 
 
   authListener() {
@@ -49,7 +56,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppNavBar user = {this.state.user} />
+        <AppNavBar user = {this.state.user} setUID = {this.setUID} />
         <Switch>
           <Route path='/Home' render={(props) => <Home />} />
           <Route path='/' render={(props) => <Landing />} />
