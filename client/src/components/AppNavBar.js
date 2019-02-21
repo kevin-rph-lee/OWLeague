@@ -128,6 +128,7 @@ class AppNavBar extends Component {
   }
 
   logout = () => {
+      this.props.removeUID();
       fire.auth().signOut();
   }
 

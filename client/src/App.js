@@ -34,10 +34,12 @@ class App extends Component {
 
 
   setUID = (uid) => {
-      console.log('attempting to set uid ', uid)
       this.setState({uid:uid})
   }
 
+  removeUID = () => {
+      this.setState({uid:null})
+  }
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
@@ -56,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppNavBar user = {this.state.user} setUID = {this.setUID} />
+        <AppNavBar user = {this.state.user} setUID = {this.setUID} removeUID = {this.removeUID} />
         <Switch>
           <Route path='/Home' render={(props) => <Home />} />
           <Route path='/' render={(props) => <Landing />} />
