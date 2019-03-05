@@ -34,11 +34,11 @@ class App extends Component {
 
 
   setUID = (uid) => {
-      this.setState({uid:uid})
+      this.setState({UID:uid})
   }
 
   removeUID = () => {
-      this.setState({uid:null})
+      this.setState({UID:null})
   }
 
   authListener() {
