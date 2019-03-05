@@ -19,8 +19,10 @@ class App extends Component {
     library.add(faCog)
     this.state = ({
       user: null,
+      UID: null
     });
     this.authListener = this.authListener.bind(this);
+    this.setUID = this.setUID.bind(this);
   }
 
 
@@ -31,6 +33,13 @@ class App extends Component {
   }
 
 
+  setUID = (uid) => {
+      this.setState({UID:uid})
+  }
+
+  removeUID = () => {
+      this.setState({UID:null})
+  }
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
@@ -49,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppNavBar user = {this.state.user} />
+        <AppNavBar user = {this.state.user} setUID = {this.setUID} removeUID = {this.removeUID} />
         <Switch>
           <Route path='/Home' render={(props) => <Home />} />
           <Route path='/' render={(props) => <Landing />} />
